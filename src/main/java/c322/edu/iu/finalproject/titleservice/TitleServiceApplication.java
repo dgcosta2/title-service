@@ -1,4 +1,4 @@
-package c322.edu.iu.finalproject.titleservice.repository;
+package c322.edu.iu.finalproject.titleservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
