@@ -16,6 +16,24 @@ public class Title {
     private String name;
     private String author;
     private int yearOfPublication;
+    private int memberId;
+    private Boolean reserveStatus;
+
+    public Boolean getReserveStatus() {
+        return reserveStatus;
+    }
+
+    public void setReserveStatus(Boolean reserveStatus) {
+        this.reserveStatus = reserveStatus;
+    }
+
+    public int getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(int memberId) {
+        this.memberId = memberId;
+    }
 
     public int getId() {
         return id;
@@ -54,11 +72,11 @@ public class Title {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Title title = (Title) o;
-        return id == title.id && yearOfPublication == title.yearOfPublication && name.equals(title.name) && author.equals(title.author);
+        return id == title.id && yearOfPublication == title.yearOfPublication && name.equals(title.name) && author.equals(title.author) && memberId == title.memberId && reserveStatus == title.reserveStatus;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, author, yearOfPublication);
+        return Objects.hash(id, name, author, yearOfPublication, memberId, reserveStatus);
     }
 }

@@ -19,28 +19,33 @@ public class InMemoryTitleRepository{
         titles.add(title);
         return id;
     }
+//
+//    public void update(Title title, int id) {
+//        Title x = getTitleById(id);
+//        if (x != null) {
+//            x.setName(title.getName());
+//            x.setAuthor(title.getAuthor());
+//            x.setYearOfPublication(title.getYearOfPublication());
+//            x.setMemberId(title.getMemberId());
+//        } else {
+//            throw new IllegalStateException("Title id is not valid.");
+//        }
+//    }
+//
+//    public void delete(int id) {
+//        Title x = getTitleById(id);
+//        if (x != null) {
+//            titles.remove(x);
+//        } else {
+//            throw new IllegalStateException("Title id is not valid.");
+//        }
+//    }
 
-    public void update(Title title, int id) {
-        Title x = getTitleById(id);
-        if (x != null) {
-            x.setName(title.getName());
-            x.setAuthor(title.getAuthor());
-            x.setYearOfPublication(title.getYearOfPublication());
-        } else {
-            throw new IllegalStateException("Title id is not valid.");
-        }
-    }
-
-    public void delete(int id) {
-        Title x = getTitleById(id);
-        if (x != null) {
-            titles.remove(x);
-        } else {
-            throw new IllegalStateException("Title id is not valid.");
-        }
-    }
-
-    public Title getTitleById(int id) {
-        return titles.stream().filter(x -> x.getId() == id).findAny().orElse(null);
-    }
+//    public Title getTitleById(int id) {
+//        return titles.stream().filter(x -> x.getId() == id).findAny().orElse(null);
+//    }
+//
+//    public Title getMemberById(int id) {
+//        return titles.stream().filter(x -> x.getMemberId() == id).findAny().orElse(null);
+//    }
 }

@@ -24,8 +24,19 @@ public class TitlesController {
         return repository.findAll();
     }
 
+    @GetMapping("/{id}")
+    public Title findByTitleId(@PathVariable int id) {
+        return repository.findById(id).orElseThrow();
+    }
+
+    @GetMapping("/members/{id}")
+    public List<Title> findByMemberId(@PathVariable int id) {
+        return repository.findByMemberId(id);
+    }
+
     @PostMapping
     public int create(@Valid @RequestBody Title title) {
+        title.setReserveStatus(false);
         Title newTitle = repository.save(title);
         return newTitle.getId();
     }
@@ -35,8 +46,12 @@ public class TitlesController {
     public void update(@Valid @RequestBody Title title, @PathVariable int id) {
         title.setId(id);
         Optional<Title> c = repository.findById(id);
-        if (c.isPresent())
-            repository.save(title);
+        if (c.isPresent()){
+            Title t = c.get();
+            t.setMemberId(title.getMemberId());
+            t.setReserveStatus(title.getReserveStatus());
+            repository.save(t);
+        }
         else throw new IllegalStateException("Title is not in the database.");
     }
 
