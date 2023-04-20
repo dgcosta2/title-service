@@ -52,7 +52,7 @@ public class TitlesController {
             t.setReserveStatus(title.getReserveStatus());
             repository.save(t);
         }
-        else throw new IllegalStateException("Title is not in the database.");
+        else throw new IllegalStateException("Title id is not in the database.");
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -60,6 +60,10 @@ public class TitlesController {
     public void delete(@PathVariable int id) {
         Title title = new Title();
         title.setId(id);
+        Optional<Title> c = repository.findById(id);
+        if (c.isPresent()){
         repository.delete(title);
+        }
+        else throw new IllegalStateException("Title id is not in the database.");
     }
 }
