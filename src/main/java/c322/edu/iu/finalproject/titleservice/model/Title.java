@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotEmpty;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -19,6 +20,7 @@ public class Title {
     private int yearOfPublication;
     private int memberId;
     private Boolean reserveStatus;
+    private LocalDate dueDate;
 
     public Boolean getReserveStatus() {
         return reserveStatus;
@@ -68,16 +70,24 @@ public class Title {
         this.yearOfPublication = yearOfPublication;
     }
 
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Title title = (Title) o;
-        return id == title.id && yearOfPublication == title.yearOfPublication && name.equals(title.name) && author.equals(title.author) && memberId == title.memberId && reserveStatus == title.reserveStatus;
+        return id == title.id && yearOfPublication == title.yearOfPublication && name.equals(title.name) && author.equals(title.author) && memberId == title.memberId && reserveStatus == title.reserveStatus && dueDate.equals(title.dueDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, author, yearOfPublication, memberId, reserveStatus);
+        return Objects.hash(id, name, author, yearOfPublication, memberId, reserveStatus, dueDate);
     }
 }

@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +27,7 @@ public class TitlesController {
 
     @GetMapping("/{id}")
     public Title findByTitleId(@PathVariable int id) {
+        //Optional<Title> maybe Title;
         return repository.findById(id).orElseThrow();
     }
 
@@ -37,6 +39,7 @@ public class TitlesController {
     @PostMapping
     public int create(@Valid @RequestBody Title title) {
         title.setReserveStatus(false);
+        title.setDueDate(null);
         Title newTitle = repository.save(title);
         return newTitle.getId();
     }
@@ -46,13 +49,16 @@ public class TitlesController {
     public void update(@Valid @RequestBody Title title, @PathVariable int id) {
         title.setId(id);
         Optional<Title> c = repository.findById(id);
-        if (c.isPresent()){
+        if (c.isPresent()) {
             Title t = c.get();
             t.setMemberId(title.getMemberId());
             t.setReserveStatus(title.getReserveStatus());
+            LocalDate dueDate = LocalDate.now().plusWeeks(2);
+            t.setDueDate(dueDate);
             repository.save(t);
+        } else {
+            throw new IllegalStateException("Title id is not in the database.");
         }
-        else throw new IllegalStateException("Title id is not in the database.");
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
