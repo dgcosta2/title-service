@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/titles")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://library-frontend-alpha.vercel.app")
 public class TitlesController {
 
     private TitleRepository repository;
