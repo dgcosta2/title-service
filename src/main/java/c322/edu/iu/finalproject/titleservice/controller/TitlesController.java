@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/titles")
+@CrossOrigin(origins = "http://localhost:3000")
 public class TitlesController {
 
     private TitleRepository repository;
@@ -47,7 +48,6 @@ public class TitlesController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/{id}")
     public void update(@Valid @RequestBody Title title, @PathVariable int id) {
-        title.setId(id);
         Optional<Title> c = repository.findById(id);
         if (c.isPresent()) {
             Title t = c.get();
@@ -56,6 +56,18 @@ public class TitlesController {
             LocalDate dueDate = LocalDate.now().plusWeeks(2);
             t.setDueDate(dueDate);
             repository.save(t);
+        } else {
+            throw new IllegalStateException("Title id is not in the database.");
+        }
+    }
+
+    @PutMapping("/renew/{id}")
+    public void renew(@PathVariable int id) {
+        Optional<Title> maybeTitle = repository.findById(id);
+        if (maybeTitle.isPresent()) {
+            Title title = maybeTitle.get();
+            title.setDueDate(title.getDueDate().plusWeeks(2));
+            repository.save(title);
         } else {
             throw new IllegalStateException("Title id is not in the database.");
         }
